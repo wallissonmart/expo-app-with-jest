@@ -1,20 +1,23 @@
-import React from 'react';
-import { render, fireEvent, act, waitFor } from '@testing-library/react-native';
-import Auth, { PropsNavigation } from '.';
-import { RootStackParamList } from '../../routes/routes';
-import { RouteProp } from '@react-navigation/native';
+import React from "react";
+import { render, fireEvent, act, waitFor } from "@testing-library/react-native";
+import Auth, { PropsNavigation } from ".";
+import { RootStackParamList } from "../../routes/routes";
+import { RouteProp } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
-jest.useFakeTimers();
+type NavigationMockType = NativeStackNavigationProp<RootStackParamList, "Auth">;
 
-describe('Auth', () => {
-  const navigationMock: PropsNavigation['navigation'] = {
+describe("Auth", () => {
+  const navigationMock: NavigationMockType = {
+    ...({} as NativeStackNavigationProp<RootStackParamList, "Auth">),
     navigate: jest.fn(),
+    goBack: jest.fn(),
+    addListener: jest.fn(),
   };
 
-  const routeMock: RouteProp<RootStackParamList, 'Auth'> = {
-    key: 'test-key',
-    name: 'Auth',
-    params: undefined,
+  const routeMock: RouteProp<RootStackParamList, "Auth"> = {
+    key: "test-key",
+    name: "Auth",
   };
 
   const props: PropsNavigation = {
@@ -22,12 +25,12 @@ describe('Auth', () => {
     route: routeMock,
   };
 
-  it('renderiza os componentes corretamente', () => {
+  it("renderiza os componentes corretamente", () => {
     const { getByTestId, getByText } = render(<Auth {...props} />);
 
-    expect(getByText('Digite um usuário válido para prosseguir')).toBeTruthy();
-    expect(getByTestId('input')).toBeTruthy();
-    expect(getByTestId('button')).toBeTruthy();
+    expect(getByText("Digite um usuário válido para prosseguir")).toBeTruthy();
+    expect(getByTestId("input")).toBeTruthy();
+    expect(getByTestId("button")).toBeTruthy();
   });
 
   /*it('exibe erro ao pressionar o botão "Avançar" com um valor inválido no campo de entrada', async () => {
@@ -47,12 +50,12 @@ describe('Auth', () => {
 
   it('não exibe erro ao pressionar o botão "Avançar" com um valor válido no campo de entrada', () => {
     const { getByTestId } = render(<Auth {...props} />);
-    const input = getByTestId('input');
-    const button = getByTestId('button');
+    const input = getByTestId("input");
+    const button = getByTestId("button");
 
-    fireEvent.changeText(input, 'Messi');
+    fireEvent.changeText(input, "Messi");
     fireEvent.press(button);
 
-    expect(props.navigation.navigate).toHaveBeenCalledWith('Home');
+    expect(props.navigation.navigate).toHaveBeenCalledWith("Home");
   });
 });
