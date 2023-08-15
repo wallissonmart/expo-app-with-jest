@@ -1,7 +1,7 @@
 import React from "react";
 import { render, fireEvent, act, waitFor } from "@testing-library/react-native";
-import Auth, { PropsNavigation } from ".";
-import { RootStackParamList } from "../../routes/routes";
+import Auth, { PropsNavigation } from "../../src/screens/Auth";
+import { RootStackParamList } from "../../src/routes/routes";
 import { RouteProp } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
