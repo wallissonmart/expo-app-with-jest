@@ -36,7 +36,7 @@ function Auth({ navigation }: PropsNavigation) {
       setError(true);
       setTimeout(() => {
         setError(false);
-      }, 3000);
+      }, 2000);
     }
   };
 
