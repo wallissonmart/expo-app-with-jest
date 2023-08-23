@@ -18,7 +18,7 @@ function Auth({ navigation }: PropsNavigation) {
   const [error, setError] = useState(false);
 
   const handleInputChange = (text: string) => {
-    setInputValue(text.trim());
+    setInputValue(text);
     setError(false);
   };
 
